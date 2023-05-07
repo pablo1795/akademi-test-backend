@@ -1,8 +1,8 @@
-const employeeModel = require('../model/employee.model');
+const employeesModel = require('../model/employees.model');
 
 const getAllEmployees = async (req, res) => {
   try {
-    const employees = await employeeModel.getAllEmployees();
+    const employees = await employeesModel.getAllEmployees();
 
     res.json({ message: 'GET ALL EMPLOYEES', result: employees });
   } catch (error) {
@@ -13,7 +13,7 @@ const getAllEmployees = async (req, res) => {
 const getEmployeeById = async (req, res) => {
   try {
     const employeeId = req.params.id;
-    const employee = await employeeModel.getEmployeeById(employeeId);
+    const employee = await employeesModel.getEmployeeById(employeeId);
 
     if (!employee) {
       res.status(404).json({ message: `GET EMPLOYEE BY ID ${employeeId} NOT FOUND` });
@@ -29,7 +29,7 @@ const getEmployeeById = async (req, res) => {
 const getEmployeesByNameAndTeam = async (req, res) => {
   try {
     const { first_name, team_id, page, size } = req.query;
-    const employees = await employeeModel.getEmployeesByNameAndTeam(first_name, team_id, page, size);
+    const employees = await employeesModel.getEmployeesByNameAndTeam(first_name, team_id, page, size);
 
     res.json({ message: 'GET EMPLOYEES BY NAME AND TEAM', result: employees });
   } catch (error) {
@@ -40,7 +40,7 @@ const getEmployeesByNameAndTeam = async (req, res) => {
 const createEmployee = async (req, res) => {
   try {
     const newEmployee = req.body;
-    const createdEmployee = await employeeModel.createEmployee(newEmployee);
+    const createdEmployee = await employeesModel.createEmployee(newEmployee);
     res.status(201).json({ message: 'POST EMPLOYEE', result: createdEmployee });
   } catch (error) {
     res.status(500).json({ message: 'POST EMPLOYEE NOT FOUND', result: {} });
@@ -50,7 +50,7 @@ const createEmployee = async (req, res) => {
 const updateEmployee = async (req, res) => {
   try {
     const employeeId = req.params.id;
-    const updatedEmployee = await employeeModel.updateEmployee(employeeId, req.body);
+    const updatedEmployee = await employeesModel.updateEmployee(employeeId, req.body);
 
     if (!updatedEmployee) {
       res.status(404).json({ message: `PUT EMPLOYEE BY ID ${employeeId} NOT FOUND` });
@@ -66,7 +66,7 @@ const updateEmployee = async (req, res) => {
 const deleteEmployee = async (req, res) => {
   try {
     const employeeId = req.params.id;
-    const deletedEmployee = await employeeModel.deleteEmployee(employeeId);
+    const deletedEmployee = await employeesModel.deleteEmployee(employeeId);
     if (!deletedEmployee) {
       res.status(404).json({ message: `DELETE EMPLOYEE BY ID ${employeeId} NOT FOUND` });
       return;

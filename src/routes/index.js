@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const employeeRoutes = require('./employee.route');
+const employeesRoutes = require('./employees.route');
 const assetRoutes = require('./asset.route');
 
-router.use("/employee", employeeRoutes)
-router.use("/asset", assetRoutes)
+router.use("/employees", employeesRoutes);
+router.use("/asset", assetRoutes);
 
 module.exports = router;
